@@ -1,0 +1,29 @@
+instructions to install and bring hyperledger 0.6 up
+    1) Go to Go_folder/work/src/github.com/hyperledger/fabric/devenv  and run below comands
+                 a)vagrant up
+                  b)vagrant provision
+    2) Once step 1 is over the VM image will be setup.
+    3) Create car_chaincode folder in Go_folder/work/src/github.com/hyperledger/fabric/ directory and copy the chaincode.go file and complied class file also
+    4) Open 3 consoles(git bash).
+
+
+Console 1 commands to be executed
+    1) $GOPATH/src/github.com/hyperledger/fabric/devenv
+    2) vagrant ssh
+    3) cd $GOPATH/src/github.com/hyperledger/fabric
+    4) make membersrvc  ( needed to run this command only once during first run after that not required)
+    5) memberser build/bin/membersrvc (to start CA server)
+
+Console 2 commands to be executed
+    1) cd $GOPATH/src/github.com/hyperledger/fabric/devenv
+    2) vagrant ssh
+    3) cd $GOPATH/src/github.com/hyperledger/fabric
+    4) peer node start --peer-chaincodedev --logging-level='DEBUG'
+
+Console 3 commands to be executed ( to deploy chaincode)
+    1) cd $GOPATH/src/github.com/hyperledger/fabric/devenv
+    2) vagrant ssh
+    3) cd $GOPATH/src/github.com/hyperledger/fabric/car_Chaincode
+    4) CORE_CHAINCODE_ID_NAME=carContract CORE_PEER_ADDRESS=0.0.0.0:30303 ./car_chaincode
+    5) The name of the chaincode mentioned in 4th step should be copied to  configuration.js file in car_history_tracker folder.
+
